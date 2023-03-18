@@ -77,15 +77,14 @@ const SectionH = lazy(() => import('./SectionH'));
 
 
 const Main = () => {
-  const [loading, setloading] = useState(true)
-  useEffect(() => {
-    document.title = "IceDoge Home";
-    window.onload = () => {
-      setloading(false)
-    }
-  }, []);
-
-  ;
+  // const [loading, setloading] = useState(true)
+  // useEffect(() => {
+  //   document.title = "IceDoge Home";
+  //   window.onload = () => {
+  //     setloading(false)
+  //   }
+  // }, []);
+  // ;
 
   const db = getDatabase();
   const presalecard_table = ref(db, 'presalecard');
@@ -179,14 +178,14 @@ $(window).on('mousemove', moveIcedoge);
 
   return (
     <>
-    {loading? <Loader/>:null}
+    {/* {loading? <Loader/>:null} */}
     <Navbar/>
   
     <div id="snackbar">Some text some message..</div>
     <div className='buy-card-overlay'>
        <Exchange/> 
     </div>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader/>}>
 <SectionA/>
 <SectionB/>
 <SectionC/>

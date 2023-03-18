@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import AOS from 'aos';
 import Exchange from './components/Exchange';
+import { Icebutton } from './components/WalletButton';
 import Loader from './Loader';
 import NFTcard from './components/NFTcard';
 import TeamsNavbar from '../TeamsNavBar';
@@ -99,13 +100,13 @@ useEffect (()=>{
 
   return (
     <>
-    {loading? <Loader/>:null}
+    {/* {loading? <Loader/>:null} */}
     <TeamsNavbar />
     <div id="snackbar">Some text some message..</div>
     <div className='buy-card-overlay'>
-      {
-        account?<Exchange/>:<WallecSelect/>
-      }
+      
+       <Exchange/>
+      
       
         
     </div>
@@ -178,10 +179,7 @@ useEffect (()=>{
                 </span>
             </div>
             <div className='buy-btn-div'>
-              <button onClick={()=>{
-                openSwap(account)
-            
-              }}>Buy $ICEDOGE</button>
+            <Icebutton/>
             </div>
           </div>
           <div className='faq-div'>

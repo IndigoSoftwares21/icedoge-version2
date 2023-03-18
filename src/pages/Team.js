@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import AOS from 'aos';
 import Exchange from './components/Exchange'
+import { Icebutton } from './components/WalletButton';
 import Loader from './Loader';
 import Personcard from './components/Personcard'
 import TeamsNavbar from '../TeamsNavBar'
@@ -93,14 +94,12 @@ const Team = () => {
      })
   return (
     <>
-    {loading? <Loader/>:null}
+    {/* {loading? <Loader/>:null} */}
     <TeamsNavbar />
     <div id="snackbar">Some text some message..</div>
     <div className='buy-card-overlay'>
-      {
-        account?<Exchange/>:<WallecSelect/>
-      }
-        
+
+        <Exchange/>
         
     </div>
     <section className='hero'>
@@ -178,10 +177,7 @@ const Team = () => {
                 </span>
             </div>
             <div className='buy-btn-div'>
-              <button onClick={()=>{
-                openSwap(account)
-                
-              }}>Buy $ICEDOGE</button>
+            <Icebutton/>
             </div>
           </div>
           <div className='faq-div'>

@@ -72,12 +72,8 @@ const Exchange = () => {
    const  usdtValue = e.target.value;
    setUsdt(usdtValue);
    setIce(usdtValue * 10000);
-   if(usdtValue<10)
+   if(usdtValue<=10)
    {
-    // if(usdtValue==0)
-    // {
-    //   setAmount("0");
-    // }
    
       document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
       document.querySelector(".low-bal-div").style.display = "flex";
@@ -92,7 +88,18 @@ const Exchange = () => {
     const iceValue = e.target.value;
     setIce(iceValue);
     setUsdt(iceValue / 10000);
+    if(iceValue<=100000)
+    {
+       document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
+       document.querySelector(".low-bal-div").style.display = "flex";
+       
+    }
+    else{
+     setAmount((iceValue/1606000).toString());
     setEth(iceValue/1606000);
+    }
+    
+    
   };
 
   const insuffientFunds =()=>{
@@ -150,6 +157,12 @@ const Exchange = () => {
     hash: data?.hash,
   })
 
+  //success
+  useEffect(() => {
+    if (isSuccess) {
+      updateIcedogeBalance(ice,address);
+    }
+  }, [isSuccess])
  
 //for send error
 const getUserBalances = () => {
@@ -218,6 +231,7 @@ useEffect(() => {
               <p>You Pay</p>
               <div className='input-div'>
                   <input
+        type='number'
         aria-label="Amount (ether)"
         onChange={convertUSDTtoICE}
         placeholder="0.0"
@@ -237,7 +251,11 @@ useEffect(() => {
       <div className='coin-div'>
               <p>You Receive</p>
               <div className='input-div'>
-                <input name="ice" value={ice} onChange={convertICEtoUSDT} placeholder='0.0'></input>
+                <input name="ice"
+                 value={ice} 
+                 type='number'
+                onChange={convertICEtoUSDT} 
+                placeholder='0.0'></input>
                 <span>
                   <img alt='ice Icon' src={iceIcon}/>
                   <p style={{fontSize:'14px'}}>ICEDOGE</p>
@@ -247,7 +265,7 @@ useEffect(() => {
         <div className='bonus-div'>
               <p>Purchased $ICEDOGE 0 + 0 Bonus</p>
         </div>
-      <button className='final-buy-btn' disabled={isLoading || !sendTransaction || !ethaddress || !amount}>
+      <button className='final-buy-btn' disabled={isLoading || !sendTransaction || !ethaddress || !amount || parseFloat(amount)!=0}>
         {isLoading ? 'Buying...' : 'Buy Now'}
       </button>
       <br/>
@@ -255,8 +273,8 @@ useEffect(() => {
       {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
       {isSuccess && (
-        <div>
-          Successfully bought {amount}
+        <div className=''>
+          Successfully bought {ice} $ICD Tokens
           <div>
             <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
           </div>
@@ -285,61 +303,3 @@ const ethBalance = parseFloat(data?.formatted);
   )
 }
 
-{/* <div className='buy-card'>
-            <div className='ex-div'>
-              <p>Exchange</p>
-              <br/>
-             
-              <ion-icon name="close-outline" onClick={()=>{
-                hideinsuffientFunds();
-                setUsdt("");
-                setIce("");
-                setEth("");
-
-                document.querySelector('.buy-card-overlay').style.display = 'none';
-                // document.body.style.overflow = 'initial';
-              }}></ion-icon>
-            </div>
-            <div className='coin-div' id='ethdiv'>
-              <p>You Pay</p>
-              <div className='input-div'>
-                <input type='number' min="0"   name="eth" value={usdt} onChange={convertUSDTtoICE}  placeholder='0.0'></input>
-                <span>
-                  <img alt='eth Icon' src={ethIcon}/>
-                  <p style={{fontSize:'14px'}}>ETH (USD)</p>
-                </span>
-              </div>
-            </div>
-            <div className='low-bal-div'>
-              <p id='errorp'>
-              
-            </p>
-            </div>
-            <div className='coin-div'>
-              <p>You Receive</p>
-              <div className='input-div'>
-                <input type='number' min="0" name="ice" value={ice} onChange={convertICEtoUSDT} placeholder='0.0'></input>
-                <span>
-                  <img alt='ice Icon' src={iceIcon}/>
-                  <p style={{fontSize:'14px'}}>ICEDOGE</p>
-                </span>
-              </div>
-            </div>
-            <div className='bonus-div'>
-              <p>Purchased $ICEDOGE 0 + 0 Bonus</p>
-            </div>
-            <button className='final-buy-btn' disabled={isLoading || !sendTransaction || !to || !eth.toString()}>
-            {isLoading ? 'Sending...' : 'Buy Now'}
-            </button>
-            
-              <br/>
-            
-      {/* {etherBalance && (<p style={{color:'#000', fontSize:'14px', opacity:'1'}}>ETH Balance: {formatEther(etherBalance)}</p>)}  
-    {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}                       */}
-    {/* {state.status === 'Success' ? <p style={{color:'#000', fontSize:'13px',textAlign:'center'}}>Smart Contract Call</p> : state.status !== 'None' && state.status !== 'Exception' && <p style={{color:'#000', fontSize:'13px',textAlign:'center'}}> {state.status} <br/> This may take a while, do not exit or reload page</p>} */}
-      //       <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-      // </div> */}
-      
-      
-      
-      
