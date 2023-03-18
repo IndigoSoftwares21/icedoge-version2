@@ -1,0 +1,101 @@
+:root {
+    --white: #F6FDFF;
+    --black-main:  #0B111B;
+    --web-red:#FF004A;
+    --web-blue:#5ADAFF;
+  }
+
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid red; */
+    font-family: 'Prompt', sans-serif;
+    
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+body{
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+
+body{
+    background: var(--white);
+}
+ion-icon{
+    background-color: none;
+    background: none;
+}
+
+.dropdown {
+
+  display: inline-block;
+
+  position: relative;
+
+}
+
+.dropdown-content {
+
+  top: 20px;
+
+  background: rgba(221, 239, 245, 1) !important;
+  
+  border-radius: 8px;
+
+  display: none;
+
+  padding: 15px 0;
+
+  position: absolute;
+
+  width: 100%;
+
+  overflow: auto;
+
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+
+}
+.dropdown:hover .dropdown-content {
+
+
+  display: block;
+
+
+}
+
+.dropdown-content a {
+
+
+  display: block;
+
+
+  color: #000000;
+
+
+  padding: 5px;
+  margin: 5px 0;
+
+
+  text-decoration: none;
+
+
+}
+.dropdown-content a:hover {
+
+
+  color: #FFFFFF;
+
+
+  background-color: #00A4BD;
+
+
+}
