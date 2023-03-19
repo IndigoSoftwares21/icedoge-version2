@@ -1,5 +1,6 @@
 import './exchange.css';
 
+import { BigNumber, ethers } from 'ethers'
 import React, { useEffect, useState } from 'react';
 import { getDatabase, onValue, ref, update } from "firebase/database";
 import {
@@ -11,7 +12,6 @@ import {
 } from 'wagmi';
 
 import ethIcon from './ethicon.png';
-import { ethers } from 'ethers';
 import iceIcon from './iceIcon.png';
 import { useDebounce } from 'use-debounce';
 
@@ -71,22 +71,20 @@ const Exchange = () => {
   const convertUSDTtoICE = (e) => {
     hideinsuffientFunds();
     hideEmptyEth();
-    if (!wait) {
-      setWait(true)
-    } 
+    
    const  usdtValue = e.target.value;
    setUsdt(usdtValue);
    setIce(usdtValue * 10000);
-   if(usdtValue<=10)
+   if(usdtValue < 10)
    {
-    
+  
     setWait(false)
       document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
       document.querySelector(".low-bal-div").style.display = "flex";
       
    }
    else{
-    setAmount((usdtValue/1606).toString());
+    setAmount(ethers.utils.parseEther((usdtValue/1606).toString()));
     setEth(usdtValue/1606);
    }
   };
@@ -95,7 +93,7 @@ const Exchange = () => {
     const iceValue = e.target.value;
     setIce(iceValue);
     setUsdt(iceValue / 10000);
-    if(iceValue<=100000)
+    if(iceValue < 100000)
     {
      
         setWait(false)
@@ -105,7 +103,7 @@ const Exchange = () => {
        
     }
     else{
-     setAmount((iceValue/1606000).toString());
+      setAmount(ethers.utils.parseEther((iceValue/1606000).toString()))
     setEth(iceValue/1606000);
     }
     
@@ -139,10 +137,12 @@ const Exchange = () => {
   
   const [debouncedAmount] = useDebounce(amount, 500)
  
-  const { config, } = usePrepareSendTransaction({
+ 
+  const { data, isIdle, isLoading, isSuccess, isError, sendTransaction } = useSendTransaction({
+    mode: 'recklesslyUnprepared',
     request: {
       to: debouncedTo,
-      value: debouncedAmount ? ethers.utils.parseEther(debouncedAmount) : undefined,
+      value: amount,
     },
     onError(error) {
       if(error.message.toString().includes("insufficient funds"))
@@ -155,34 +155,17 @@ const Exchange = () => {
         document.querySelector(".low-bal-div").style.display = "flex";
       } 
     },
+    onSuccess(data) {
+      updateIcedogeBalance(ice,address);
+    },
   })
-  const { data, sendTransaction, error } = useSendTransaction(config)
 
  //alert error
- useEffect(() => {
-    if (error) {
-      if(wait)
-      {
-        setWait(false)
-      }
-      
-      document.getElementById("errorp").innerHTML = error.message;
-    document.querySelector(".low-bal-div").style.display = "flex";
-    }
-  }, [error])
+
  
- 
-  const { isLoading, isSuccess} = useWaitForTransaction({
-    hash: data?.hash,
-  })
 
   //success
-  useEffect(() => {
-    if (isSuccess) {
-      updateIcedogeBalance(ice,address);
-    }
-  }, [isSuccess])
- 
+
 //for send error
 const getUserBalances = () => {
   return new Promise((resolve, reject) => {
@@ -228,8 +211,9 @@ useEffect(() => {
     <form
     className='buy-card'
       onSubmit={(e) => {
+        setWait(true)
         e.preventDefault()
-        sendTransaction?.()
+        sendTransaction()
       }}
     >
       <div className='ex-div'>
@@ -251,6 +235,7 @@ useEffect(() => {
               <div className='input-div'>
                   <input
         type='number'
+        min="0"
         aria-label="Amount (ether)"
         onChange={convertUSDTtoICE}
         placeholder="0.0"
@@ -272,6 +257,7 @@ useEffect(() => {
               <div className='input-div'>
                 <input name="ice"
                  value={ice} 
+                 min="0"
                  type='number'
                 onChange={convertICEtoUSDT} 
                 placeholder='0.0'></input>
@@ -284,7 +270,7 @@ useEffect(() => {
         <div className='bonus-div'>
               <p>Purchased $ICEDOGE 0 + 0 Bonus</p>
         </div>
-      <button className='final-buy-btn' disabled={isLoading || !sendTransaction || !ethaddress || !amount || parseFloat(amount)!=0}>
+      <button className='final-buy-btn' disabled={isLoading || usdt < 10} >
         {isLoading ? 'Buying...' : 'Buy Now'}
       </button>
       <br/>
