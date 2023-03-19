@@ -29,6 +29,8 @@ const Exchange = () => {
   const dbRef = ref(getDatabase());
   const db = getDatabase();
 
+  const [wait , setWait] = useState(false)
+  
   const [eth, setEth] = useState("");
 
   const [usdt, setUsdt] = useState("");
@@ -69,12 +71,16 @@ const Exchange = () => {
   const convertUSDTtoICE = (e) => {
     hideinsuffientFunds();
     hideEmptyEth();
+    if (!wait) {
+      setWait(true)
+    } 
    const  usdtValue = e.target.value;
    setUsdt(usdtValue);
    setIce(usdtValue * 10000);
    if(usdtValue<=10)
    {
-   
+    
+    setWait(false)
       document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
       document.querySelector(".low-bal-div").style.display = "flex";
       
@@ -85,11 +91,15 @@ const Exchange = () => {
    }
   };
   const convertICEtoUSDT = (e) => {
+    
     const iceValue = e.target.value;
     setIce(iceValue);
     setUsdt(iceValue / 10000);
     if(iceValue<=100000)
     {
+     
+        setWait(false)
+       
        document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
        document.querySelector(".low-bal-div").style.display = "flex";
        
@@ -137,6 +147,10 @@ const Exchange = () => {
     onError(error) {
       if(error.message.toString().includes("insufficient funds"))
       {
+        if(wait)
+        {
+        setWait(false)
+        }
         document.getElementById("errorp").innerHTML = "You don't have enough balance to pay for this transaction.";
         document.querySelector(".low-bal-div").style.display = "flex";
       } 
@@ -147,6 +161,11 @@ const Exchange = () => {
  //alert error
  useEffect(() => {
     if (error) {
+      if(wait)
+      {
+        setWait(false)
+      }
+      
       document.getElementById("errorp").innerHTML = error.message;
     document.querySelector(".low-bal-div").style.display = "flex";
     }
@@ -269,6 +288,7 @@ useEffect(() => {
         {isLoading ? 'Buying...' : 'Buy Now'}
       </button>
       <br/>
+      {wait ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>Please wait...</p>: null}
       <Balance/>
       {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
