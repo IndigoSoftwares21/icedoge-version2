@@ -155,15 +155,45 @@ const Exchange = () => {
         document.querySelector(".low-bal-div").style.display = "flex";
       } 
     },
-    onSuccess(data) {
-      updateIcedogeBalance(ice,address);
+    onSuccess() {
+      if(data){
+        if (data.hash.code != 4001) {
+        if(wait)
+          {
+          setWait(false)
+          }
+          document.getElementById("errorp").innerHTML = "Transaction Rejected";
+          document.querySelector(".low-bal-div").style.display = "flex";
+      }
+      }
     },
   })
 
  //alert error
-
+  useEffect(() => { 
+    if (error) {
+      if(wait)
+        {
+        setWait(false)
+        }
+        document.getElementById("errorp").innerHTML = error.message;
+        document.querySelector(".low-bal-div").style.display = "flex";
+    }
+  },[error])
  
-
+  useEffect(() => {
+    if(data){
+      if (data.hash.code == 4001) {
+      if(wait)
+        {
+        setWait(false)
+        }
+        document.getElementById("errorp").innerHTML = "Transaction Rejected";
+        document.querySelector(".low-bal-div").style.display = "flex";
+    }
+    }
+  },[data])
+ 
   //success
 
 //for send error
@@ -278,14 +308,11 @@ useEffect(() => {
       <Balance/>
       {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
-      {isSuccess  &&(
-        <div className=''>
-          Successfully bought {ice} $ICD Tokens
-          <div>
-            <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
-          </div>
-        </div>
-      )}
+     {isSuccess && data.hash.code!=4001 && (
+  <div className=''>
+    Successfully bought {ice} $ICD Tokens
+  </div>
+)}
     </form>
   )
 }
