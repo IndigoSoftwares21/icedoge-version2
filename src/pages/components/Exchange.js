@@ -138,7 +138,7 @@ const Exchange = () => {
   const [debouncedAmount] = useDebounce(amount, 500)
  
  
-  const { data, isIdle, isLoading, isSuccess, isError, sendTransaction } = useSendTransaction({
+  const { data, isIdle, isLoading, isSuccess, isError, sendTransaction , error} = useSendTransaction({
     mode: 'recklesslyUnprepared',
     request: {
       to: debouncedTo,
@@ -278,7 +278,7 @@ useEffect(() => {
       <Balance/>
       {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
-      {isSuccess && (
+      {isSuccess  &&(
         <div className=''>
           Successfully bought {ice} $ICD Tokens
           <div>

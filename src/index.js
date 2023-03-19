@@ -13,12 +13,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-const alchemyId ="lx98LXCFaP31WWsEE0w6S6LvOPwhp856";
+// const alchemyId ="lx98LXCFaP31WWsEE0w6S6LvOPwhp856";
+const infuraId ="a347fa255b62416d88fb3365d634a7a6";
 
 const client = createClient(
   getDefaultClient({
-    appName: "Eth App",
-    alchemyId,
+    appName: "Ice Doge",
+    infuraId,
   }),
 );
 const root = ReactDOM.createRoot(document.getElementById('root'));
