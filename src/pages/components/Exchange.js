@@ -142,6 +142,7 @@ const Exchange = () => {
     mode: 'recklesslyUnprepared',
     request: {
       to: debouncedTo,
+     
       value: amount,
     },
     onError(error) {
@@ -176,8 +177,20 @@ const Exchange = () => {
         {
         setWait(false)
         }
-        document.getElementById("errorp").innerHTML = error.message;
+      if(error.message.toString().includes("insufficient funds"))
+      {
+      if(wait)
+    {
+        setWait(false)
+      }
+          document.getElementById("errorp").innerHTML = "You don't have enough balance to pay for this transaction.";
+          document.querySelector(".low-bal-div").style.display = "flex";
+     } 
+     else{
+      document.getElementById("errorp").innerHTML = error.message;
         document.querySelector(".low-bal-div").style.display = "flex";
+     }
+        
     }
   },[error])
  
