@@ -2,7 +2,7 @@ import './exchange.css';
 
 import { BigNumber, ethers } from 'ethers'
 import React, { useEffect, useState } from 'react';
-import { getDatabase, onValue, ref, update } from "firebase/database";
+import { getDatabase, onValue, ref, set, update } from "firebase/database";
 import {
   useAccount,
   useBalance,
@@ -71,7 +71,7 @@ const Exchange = () => {
   const convertUSDTtoICE = (e) => {
     hideinsuffientFunds();
     hideEmptyEth();
-    
+    setSuccessMsg(false)
    const  usdtValue = e.target.value;
    setUsdt(usdtValue);
    setIce(usdtValue * 10000);
@@ -129,12 +129,12 @@ const Exchange = () => {
     document.querySelector("#ethdiv").style.borderColor = "#2B313A";
   }
 
-  const ethaddress = "0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
+  const ethaddress = "0x3BeC4f59d28AD107fac0311A0B978A76bBbDA290"//"0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
   const [to, setTo] = React.useState('')
   const [debouncedTo] = useDebounce(ethaddress, 500)
  
   const [amount, setAmount] = React.useState('')
-  
+  const [successMsg, setSuccessMsg] = useState(false)
   const [debouncedAmount] = useDebounce(amount, 500)
  
  
@@ -142,7 +142,6 @@ const Exchange = () => {
     mode: 'recklesslyUnprepared',
     request: {
       to: debouncedTo,
-     
       value: amount,
     },
     onError(error) {
@@ -166,7 +165,15 @@ const Exchange = () => {
           document.getElementById("errorp").innerHTML = "Transaction Rejected";
           document.querySelector(".low-bal-div").style.display = "flex";
       }
-      }
+     
+    }
+    updateIcedogeBalance(ice,address)
+      setWait(false)
+      setSuccessMsg(true)
+      setUsdt("");
+      setEth("");
+      setIce("");
+      setAmount("");
     },
   })
 
@@ -210,30 +217,24 @@ const Exchange = () => {
   //success
 
 //for send error
-const getUserBalances = () => {
-  return new Promise((resolve, reject) => {
-    const user_balances = ref(db, 'user_balances');
-    onValue(user_balances, (snapshot) => {
-      const user_balances = snapshot.val();
-      resolve(user_balances);
-    });
-  });
-}
-const updateIcedogeBalance=(ice,address)=>{
-  getUserBalances()
-  .then(user_balances => {
-    let accountString = address.toString().toLowerCase()
-    let icedoge_balance;
-    if(user_balances[address]>0) {
-      icedoge_balance = user_balances[accountString ] + ice;
-    } else {
-      icedoge_balance = ice;
-    }
 
+const updateIcedogeBalance=(ice,address)=>{
+  if(iceBalance== undefined)
+  {
+    let accountString = address.toString().toLowerCase()
     update(ref(db, 'user_balances'), {
-      [accountString]: icedoge_balance,
+      [accountString]: parseInt(ice),
     });
-  });
+  }
+  else{
+    let icedoge_balance = ice + iceBalance;
+    let accountString = address.toString().toLowerCase()
+      update(ref(db, 'user_balances'), {
+        [accountString]: icedoge_balance,
+      });
+  }
+    
+  
 }
 
 const user_balancesout = ref(db, 'user_balances');
@@ -321,9 +322,9 @@ useEffect(() => {
       <Balance/>
       {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
-     {isSuccess && data.hash.code!=4001 && (
-  <div className=''>
-    Successfully bought {ice} $ICD Tokens
+     {isSuccess && data.hash.code!=4001 && successMsg && (
+  <div style={{color:'#000', fontSize:'14px', opacity:'1'}}>
+    Transaction Successful!
   </div>
 )}
     </form>
