@@ -1,7 +1,7 @@
 import './index.css';
 
 import { ConnectKitButton, ConnectKitProvider, getDefaultClient } from "connectkit";
-import { WagmiConfig, createClient } from "wagmi";
+import { WagmiConfig, createClient, mainnet } from "wagmi";
 import {
   usePrepareSendTransaction,
   useSendTransaction,
@@ -20,6 +20,7 @@ const client = createClient(
   getDefaultClient({
     appName: "Ice Doge",
     infuraId,
+    chains:[mainnet]
   }),
 );
 const root = ReactDOM.createRoot(document.getElementById('root'));
