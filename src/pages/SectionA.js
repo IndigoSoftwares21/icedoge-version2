@@ -16,7 +16,7 @@ import ytimg from '../images/YouTube - Negative.png';
 const SectionA = () => {
 
     const openPdf = () => {
-        window.open(whitepaper, "_blank");
+        //window.open(whitepaper, "_blank");
       };  
     
   return ( 

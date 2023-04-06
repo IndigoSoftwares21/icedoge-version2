@@ -31,7 +31,7 @@ const SectionH = () => {
         
       }
       const openPdf = () => {
-        window.open(whitepaper, "_blank");
+        //window.open(whitepaper, "_blank");
       };  
     
       
@@ -96,7 +96,7 @@ const SectionH = () => {
       <p>Although Icedoge as with other cryptocurrencies is a speculative investment, 
         with the strength the community has, 
         it is worth investing. You can purchase the $ICD token using fractions of a penny, 
-        and it has a total supply of 700,000,000,000.</p>
+        and it has a total supply of 250,000,000,000.</p>
       </div>
     </details>
     <details
@@ -142,7 +142,7 @@ const SectionH = () => {
      >
       <summary>How many $ ICDs will be available during the Presale?</summary>
       <div>
-      <p>A total of 700,000,000, Icedoge tokens will be available during the token presale.</p>
+      <p>A total of 220,000,000,000 Icedoge tokens will be available during the token presale.</p>
       </div>
     </details>
     <details

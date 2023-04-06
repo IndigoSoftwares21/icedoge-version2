@@ -18,10 +18,7 @@ const SectionF = () => {
           // document.body.style.overflow = 'hidden';
         }
         else{
-         
-            setMessage("Please, connect wallet!");
-           
-          
+            setMessage("Please, connect wallet!");   
         }
         
       }

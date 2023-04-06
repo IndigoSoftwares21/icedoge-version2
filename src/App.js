@@ -1,13 +1,20 @@
 import { ConnectKitButton, ConnectKitProvider, getDefaultClient } from "connectkit";
 import { WagmiConfig, createClient } from "wagmi";
+import { configureChains, mainnet } from 'wagmi'
 import {
   usePrepareSendTransaction,
   useSendTransaction,
   useWaitForTransaction
 } from 'wagmi'
 
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import React from 'react'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { ethers } from 'ethers';
+import { publicProvider } from 'wagmi/providers/public'
 import styled from "styled-components";
 import { useDebounce } from 'use-debounce'
 

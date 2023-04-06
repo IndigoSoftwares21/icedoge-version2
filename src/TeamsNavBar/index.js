@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import logo from '../images/icedoge_logo.png';
-import { Nav, Bars, Times, NavBtn, NavMenu, NavLinkAnchor } from './NavbarElements';
-import whitepaper from '../pages/whitepaper.pdf';
-import WalletButton from '../pages/components/WalletButton';
 import '../styles/Home.css';
+
+import { Bars, Nav, NavBtn, NavLinkAnchor, NavMenu, Times } from './NavbarElements';
+import React, { useEffect, useState } from 'react';
+
+import WalletButton from '../pages/components/WalletButton';
+import logo from '../images/icedoge_logo.png';
+import whitepaper from '../pages/whitepaper.pdf';
 
 const Navbar = () => {
    
@@ -52,7 +54,7 @@ const Navbar = () => {
       }
 
       const openPdf = () => {
-        window.open(whitepaper, "_blank");
+       // window.open(whitepaper, "_blank");
       }; 
 
       window.onscroll =()=>{

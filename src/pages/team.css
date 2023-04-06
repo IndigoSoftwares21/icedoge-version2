@@ -19,7 +19,7 @@
 padding-top: 50px;
 display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 10px;
   align-items: stretch;
   place-items: center;
 }

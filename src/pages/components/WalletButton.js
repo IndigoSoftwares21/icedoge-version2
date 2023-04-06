@@ -11,12 +11,7 @@ const WalletButton = () => {
 
   
   let openSwap =()=>{
-   
       document.querySelector('.buy-card-overlay').style.display = 'flex';
-      
-    
-    
-    
   }
 
  

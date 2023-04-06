@@ -132,7 +132,7 @@ const Main = () => {
   // let isplaying = false;
   
   const openPdf = () => {
-    window.open(whitepaper, "_blank");
+    //window.open(whitepaper, "_blank");
   };  
 
 

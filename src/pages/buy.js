@@ -1,26 +1,27 @@
-import React from 'react'
 import './index.css'
+
+import Navbar from "../NavBar"
 import Presalecard from './components/presalecard'
+import React from 'react'
 import discordimg from '../images/discord.png'
 import fbimg from '../images/Facebook - Negative.png'
 import instaimg from '../images/Instagram - Negative.png'
-import ytimg from '../images/YouTube - Negative.png'
 import telegram from '../images/Telegram - Negative.png'
 import twimg from '../images/Twitter - Negative.png'
 import whitepaper from './whitepaper.pdf'
-import Navbar from "../NavBar"
+import ytimg from '../images/YouTube - Negative.png'
 
 const Buy = () => {
   
   let token_contact_address ="0x6475a3628649f97t9f81259803802f2188770870";
   let presale_contact_address ="0x6475a3628649f97t9f81259803802f2188770870";
-  let total_supply = "1B"
+  let total_supply = "250B"
   let presale_allocation = "15%"
   let team_allocation = "2.5%"
   let isplaying = false;
   
   const openPdf = () => {
-    window.open(whitepaper, "_blank");
+    //window.open(whitepaper, "_blank");
   };  
 
   

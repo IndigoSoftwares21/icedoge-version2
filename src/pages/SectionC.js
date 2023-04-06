@@ -7,8 +7,8 @@ import ecoimgsmall from '../images/ecoimgsmall.png';
 
 const SectionC = () => {
   let token_contact_address ="0x6475a3628649f97t9f81259803802f2188770870";
-  let presale_contact_address ="0x6475a3628649f97t9f81259803802f2188770870";
-  let total_supply = "1B"
+  let presale_contact_address ="0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
+  let total_supply = "250B"
   let presale_allocation = "15%"
   let team_allocation = "2.5%"
   let isplaying = false;
@@ -24,9 +24,7 @@ const SectionC = () => {
     <div className='tokenomic-details'>
 
     <div className='tokenomic-div'
-     data-aos="flip-left"
-
- >
+     data-aos="flip-left">
       <h1>
         {total_supply}
       </h1>
@@ -79,26 +77,6 @@ const SectionC = () => {
       <div>
         <p className='det-item'>Decimal</p>
         <p className='det-value'>18</p>
-      </div>
-    </div>
-    <div className='token-details' data-aos="flip-up">
-      <div>
-        <p className='det-item'>Token Contract Address</p>
-        { 
-        window.innerWidth < 1200 ?
-         <p className='det-value'>
-          <button onClick={() => {
-           navigator.clipboard.writeText(token_contact_address);
-           alert('copied')
-           }}
-          >
-            
-          Copy<ion-icon name="clipboard-outline"></ion-icon>
-
-          </button>
-          </p> :
-        <p className='det-value'>{token_contact_address}</p>
-        }
       </div>
     </div>
     <div className='token-details' data-aos="flip-up">

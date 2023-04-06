@@ -8,9 +8,16 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import Home from './Home';
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { configureChains } from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
 import reportWebVitals from './reportWebVitals';
 
 // const alchemyId ="lx98LXCFaP31WWsEE0w6S6LvOPwhp856";

@@ -2,6 +2,7 @@ import 'aos/dist/aos.css';
 import './index.css';
 import 'animate.css';
 
+import { Buybutton } from './components/WalletButton';
 import Qrcode from '../images/qrcode.png';
 import dog1 from '../images/dog1.png';
 import dog2 from '../images/dog2.png';
@@ -83,7 +84,7 @@ const SectionB = () => {
           Accepted: Any ERC20 token
           Preferred: $ETH, $USDC, $ICEDOGE
           </p>
-          <button style={{marginTop:'50px'}}
+          {/* <button style={{marginTop:'50px'}}
            className='read-white-btn '
            onClick={()=>{
             window.open("https://etherscan.io/address/0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B", "_blank")
@@ -93,8 +94,8 @@ const SectionB = () => {
             View on Etherscan
           <ion-icon name="chevron-forward-outline" />
           </span>
-          </button>
-
+          </button> */}
+        <Buybutton/>
       <div>
 
    </div>

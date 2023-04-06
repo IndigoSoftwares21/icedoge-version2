@@ -28,7 +28,7 @@ let presalecard;
     //console.log(presalecard);
   });
 
-  let totalpresale = "700B";
+  let totalpresale = "220B";
   let list_price = 2.5;
   let presale_address = "0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
   let end_date_data = "Mar 12, 2023 00:00:00";
