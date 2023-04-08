@@ -43,6 +43,18 @@ const Exchange = () => {
   const [clicked, setClicked] = useState(false);
  
   const [transsuccess, settransSuccess] = useState(false);
+
+  const [ethPrice, setEthPrice] = useState(1800);
+
+  useEffect(() => {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+      .then(response => response.json())
+      .then(data => {
+        setEthPrice(parseInt(data.ethereum.usd));
+        
+      })
+      .catch(error => console.error(error));
+  }, []);
   
   const success = ()=>{
   
@@ -84,8 +96,8 @@ const Exchange = () => {
       
    }
    else{
-    setAmount(ethers.utils.parseEther((usdtValue/1606).toString()));
-    setEth(usdtValue/1606);
+    setAmount(ethers.utils.parseEther((usdtValue/ethPrice).toString()));
+    setEth(usdtValue/ethPrice);
    }
   };
   const convertICEtoUSDT = (e) => {
@@ -103,8 +115,8 @@ const Exchange = () => {
        
     }
     else{
-      setAmount(ethers.utils.parseEther((iceValue/1606000).toString()))
-    setEth(iceValue/1606000);
+      setAmount(ethers.utils.parseEther((iceValue/ethPrice).toString()))
+    setEth(iceValue/ethPrice);
     }
     
     
@@ -243,7 +255,7 @@ useEffect(() => {
   const unsubscribe = onValue(user_balancesout, (snapshot) => {
     let accountString = address.toString().toLowerCase()
     const user_balancesout = snapshot.val();
-    console.log(user_balancesout[accountString]);
+   // console.log(user_balancesout[accountString]);
     setIceBalance(user_balancesout[accountString]);
   });
   
@@ -321,7 +333,8 @@ useEffect(() => {
       <br/>
       {wait ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>Please wait...</p>: null}
       <Balance/>
-      {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>}  
+      {iceBalance === undefined ? <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>IceDoge Balance: 0</p> : <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>{`IceDoge Balance: ${iceBalance}`}</p>} 
+      {/* {ethPrice ? `The current price of ETH is $${ethPrice / 100}` : 'Loading...'}  */}
      {/* <p> Balance: {accdata?.formatted} {accdata?.symbol} </p>  */}
      {isSuccess && data.hash.code!=4001 && successMsg && (
   <div style={{color:'#000', fontSize:'14px', opacity:'1'}}>
@@ -347,6 +360,7 @@ const ethBalance = parseFloat(data?.formatted);
   return (
     <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>
      ETH Balance: {data?.formatted}
+     
     </p>
   )
 }
