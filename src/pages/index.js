@@ -8,11 +8,14 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import $ from "jquery";
 import AOS from 'aos';
 import Exchange from './components/Exchange';
+import Exchangebnb from './components/Exchangebnb';
 import Loader from './Loader';
 import Navbar from "../NavBar";
+import Stage from './components/Stage';
 import TweenLite from 'gsap';
 import ecoimgbig from '../images/ecoimgbig.png';
 import ecoimgsmall from '../images/ecoimgsmall.png';
+import { useNetwork } from 'wagmi'
 import whitepaper from './whitepaper.pdf';
 
 const SectionA = lazy(() => import('./SectionA'));
@@ -86,6 +89,16 @@ const Main = () => {
   // }, []);
   // ;
 
+  const { chain, chains } = useNetwork();
+  let [currentchain, setCurrentChain] = useState('');
+
+  useEffect(() => {
+    if (chain) {
+      setCurrentChain(chain.name);
+    }
+  }, [chain]);
+
+  
   const db = getDatabase();
   const presalecard_table = ref(db, 'presalecard');
 
@@ -183,11 +196,11 @@ $(window).on('mousemove', moveIcedoge);
   
     <div id="snackbar">Some text some message..</div>
     <div className='buy-card-overlay'>
-       <Exchange/> 
+    {currentchain === "Ethereum" && <Exchange />}
+    {currentchain === "BNB Smart Chain" && <Exchangebnb />}
     </div>
     <Suspense fallback={<Loader/>}>
 <SectionA/>
-<SectionB/>
 <SectionC/>
 {
    window.innerWidth < 1200 ? 

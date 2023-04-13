@@ -9,7 +9,7 @@ const SectionC = () => {
   let token_contact_address ="0x6475a3628649f97t9f81259803802f2188770870";
   let presale_contact_address ="0xE12C6fc28b6c35Fca2361321Ff593949d8BB539B";
   let total_supply = "250B"
-  let presale_allocation = "15%"
+  let presale_allocation = "88%"
   let team_allocation = "2.5%"
   let isplaying = false;
   return (

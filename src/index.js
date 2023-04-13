@@ -16,6 +16,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { bsc } from "wagmi/chains";
 import { configureChains } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import reportWebVitals from './reportWebVitals';
@@ -27,7 +28,7 @@ const client = createClient(
   getDefaultClient({
     appName: "Ice Doge",
     infuraId,
-    chains:[mainnet]
+    chains:[mainnet,bsc]
   }),
 );
 const root = ReactDOM.createRoot(document.getElementById('root'));

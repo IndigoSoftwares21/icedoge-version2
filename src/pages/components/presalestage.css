@@ -1,0 +1,85 @@
+section{
+    width: 100%;
+    color: var(--white-main);
+    display: flex;
+    padding: 40px 40px;
+
+}
+.time-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 40px 20px;
+    width: fit-content;
+    height: fit-content;
+}
+.time-spec{
+    /* H4 */
+
+font-family: 'Prompt';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 120%;
+/* identical to box height, or 34px */
+
+text-align: center;
+
+/* Foundation /Dark/dark-900 */
+
+color: #151515;
+}
+.stage{
+    padding-left: 50px;
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.time{
+    font-family: 'Prompt';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 120%;
+    text-align: center;
+    color: #FF004A;
+}
+.time-cont{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin: 0 15px;
+}
+@media screen and (max-width: 1200px) {
+    .stage{
+        margin-top: 20px;
+        padding-left: 0;
+        width: 100%;
+    }
+    .time-holder{
+      
+        padding: 10px 20px;
+        
+    }
+    .time-cont{
+        margin: 0 5px;
+    }
+    .time{
+        font-size: 20px;
+    }
+    .time-spec{
+        font-size: 12px;
+    }
+    .presale-end{
+        font-size: 12px;
+    }
+}
