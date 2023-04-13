@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { getDatabase, onValue, ref } from "firebase/database";
 
 import AOS from 'aos';
+import Stage from './Stage';
 
 const Presalecard = () => {
 
@@ -36,7 +37,7 @@ let presalecard;
   let presale_end = "12th March 2023"
   let presale_level = 0;
   let rate = 0.0001;
-  let amount_raised = '3,916,592';
+  let amount_raised = '3,920,092';
   let total_amount = 10000000;
   let amount_raised_int = amount_raised.replace(/,/g,"");
   let amount_raised_percent = (amount_raised_int / total_amount) * 100;
@@ -49,10 +50,6 @@ let presalecard;
   let hoursLeft = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   let minutesLeft = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
   let secondsLeft = Math.floor((diffTime % (1000 * 60)) / 1000);
-
-  
-
-
 
     return {
       daysLeft,
@@ -113,6 +110,7 @@ let presalecard;
         </span>
         <p className='presale-end'>Presale Ends in {presale_end}</p>
       </div> */}
+      <Stage/>
     </div>
   )
 

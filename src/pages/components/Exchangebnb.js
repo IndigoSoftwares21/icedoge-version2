@@ -11,12 +11,13 @@ import {
   useWaitForTransaction
 } from 'wagmi';
 
+import bnbIcon from './bnb.png';
 import ethIcon from './ethicon.png';
 import iceIcon from './iceIcon.png';
 import { useDebounce } from 'use-debounce';
 
 let [ethBalance, setEthBalance] = ('');
-const Exchange = () => {
+const Exchangebnb = () => {
   let { address, isConnecting, isDisconnected } = useAccount()
   if (isDisconnected) 
   {
@@ -44,13 +45,14 @@ const Exchange = () => {
  
   const [transsuccess, settransSuccess] = useState(false);
 
-  const [ethPrice, setEthPrice] = useState(1800);
+  const [ethPrice, setEthPrice] = useState(324);
 
   useEffect(() => {
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd')
       .then(response => response.json())
       .then(data => {
-        setEthPrice(parseInt(data.ethereum.usd));
+        setEthPrice(parseInt(data.binancecoin.usd));
+        
       })
       .catch(error => console.error(error));
   }, []);
@@ -88,7 +90,6 @@ const Exchange = () => {
    setIce(usdtValue * 10000);
    if(usdtValue < 10)
    {
-  
     setWait(false)
       document.getElementById("errorp").innerHTML = "Error: Minumum Purchase is 10 USD";
       document.querySelector(".low-bal-div").style.display = "flex";
@@ -298,8 +299,8 @@ useEffect(() => {
         value={usdt}
       />
                 <span>
-                  <img alt='eth Icon' src={ethIcon}/>
-                  <p style={{fontSize:'14px'}}>ETH (USD)</p>
+                  <img alt='eth Icon' width={14} src={bnbIcon}/>
+                  <p style={{fontSize:'14px'}}>BNB (USD)</p>
                 </span>
               </div>
       </div>
@@ -344,7 +345,7 @@ useEffect(() => {
   )
 }
 
-export default Exchange
+export default Exchangebnb
 
 export const Balance = () => {
   const { address, isConnecting, isDisconnected } = useAccount()
@@ -358,7 +359,7 @@ const ethBalance = parseFloat(data?.formatted);
   else
   return (
     <p style={{color:'#000', fontSize:'14px', opacity:'1'}}>
-     ETH Balance: {data?.formatted}
+     BNB Balance: {data?.formatted}
      
     </p>
   )
