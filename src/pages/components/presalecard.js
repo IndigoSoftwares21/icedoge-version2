@@ -36,7 +36,7 @@ let presalecard;
   let presale_end = "12th March 2023"
   let presale_level = 0;
   let rate = 0.0001;
-  let amount_raised = '3,913,836';
+  let amount_raised = '3,916,592';
   let total_amount = 10000000;
   let amount_raised_int = amount_raised.replace(/,/g,"");
   let amount_raised_percent = (amount_raised_int / total_amount) * 100;
